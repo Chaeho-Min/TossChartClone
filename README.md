@@ -7,5 +7,10 @@ iOS16부터 지원하는 Swift Charts 프레임워크를 이용하여 토스증�
 
 <br/>
 
-<img width="250" src="https://user-images.githubusercontent.com/75792767/176997621-eee6fdef-61a0-4426-b49d-d1024b3b3c5c.gif">
-드래그 제스처로 특정 날짜의 금액을 탐색하는 것 구현
+## DragGesture
+
+|토스원본|클론|
+|:---:|:---:|
+|<img width="250" src="https://user-images.githubusercontent.com/75792767/176998033-fedbe479-3b62-4845-9818-187fdbf225aa.jpeg">|<img width="250" src="https://user-images.githubusercontent.com/75792767/176997621-eee6fdef-61a0-4426-b49d-d1024b3b3c5c.gif">|
+
+차트 드래그 제스처 구현
