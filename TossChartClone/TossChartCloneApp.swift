@@ -11,7 +11,7 @@ import SwiftUI
 struct TossChartCloneApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TossChart()
         }
     }
 }

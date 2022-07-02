@@ -8,17 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		508BEAEA2870594D00709FEB /* TossChartCloneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BEAE92870594D00709FEB /* TossChartCloneApp.swift */; };
-		508BEAEC2870594D00709FEB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BEAEB2870594D00709FEB /* ContentView.swift */; };
+		508BEAEC2870594D00709FEB /* TossChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BEAEB2870594D00709FEB /* TossChart.swift */; };
 		508BEAEE2870594E00709FEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 508BEAED2870594E00709FEB /* Assets.xcassets */; };
 		508BEAF12870594E00709FEB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 508BEAF02870594E00709FEB /* Preview Assets.xcassets */; };
+		508BEAF82870598300709FEB /* samsungStock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BEAF72870598300709FEB /* samsungStock.swift */; };
+		508BEAFA287059AE00709FEB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508BEAF9287059AE00709FEB /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		508BEAE62870594D00709FEB /* TossChartClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TossChartClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		508BEAE92870594D00709FEB /* TossChartCloneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TossChartCloneApp.swift; sourceTree = "<group>"; };
-		508BEAEB2870594D00709FEB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		508BEAEB2870594D00709FEB /* TossChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TossChart.swift; sourceTree = "<group>"; };
 		508BEAED2870594E00709FEB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		508BEAF02870594E00709FEB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		508BEAF72870598300709FEB /* samsungStock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = samsungStock.swift; sourceTree = "<group>"; };
+		508BEAF9287059AE00709FEB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +56,9 @@
 			isa = PBXGroup;
 			children = (
 				508BEAE92870594D00709FEB /* TossChartCloneApp.swift */,
-				508BEAEB2870594D00709FEB /* ContentView.swift */,
+				508BEAEB2870594D00709FEB /* TossChart.swift */,
+				508BEAF72870598300709FEB /* samsungStock.swift */,
+				508BEAF9287059AE00709FEB /* Extensions.swift */,
 				508BEAED2870594E00709FEB /* Assets.xcassets */,
 				508BEAEF2870594E00709FEB /* Preview Content */,
 			);
@@ -137,8 +143,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				508BEAEC2870594D00709FEB /* ContentView.swift in Sources */,
+				508BEAEC2870594D00709FEB /* TossChart.swift in Sources */,
+				508BEAF82870598300709FEB /* samsungStock.swift in Sources */,
 				508BEAEA2870594D00709FEB /* TossChartCloneApp.swift in Sources */,
+				508BEAFA287059AE00709FEB /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
