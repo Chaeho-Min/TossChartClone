@@ -20,6 +20,7 @@ struct TossChart: View {
             navigationBar
             chartHeader
             stockChart
+                .padding(.vertical, 45)
                 .frame(height: 240)
                 .background {
                     VStack {
@@ -217,7 +218,7 @@ private extension TossChart {
                 }
             }
         }
-        .chartYScale(domain: minPriceSortedData[0].minPrice - 8000 ... maxPriceSortedData[0].maxPrice + 3000)
+        .chartYScale(domain: minPriceSortedData[0].minPrice ... maxPriceSortedData[0].maxPrice)
         .chartXAxis{}
         .chartYAxis{}
         .chartOverlay { proxy in
@@ -251,13 +252,14 @@ private extension TossChart {
                         // 선
                         Rectangle()
                             .fill(.gray)
-                            .frame(width: 1)
+                            .frame(width: 1, height: proxy.plotAreaSize.height + 70)
+                            .offset(y: 10)
                             .position(x: lineX - 0.5, y: lineHeight)
                         
                         Text("\(dateConverting(date: selectedElement.date))")
                             .font(.caption)
                             .foregroundColor(.gray)
-                            .offset(x: textOffset, y: -20)
+                            .offset(x: textOffset, y: -45)
                             .readSize { size in
                                 textWidth = size.width
                             }
