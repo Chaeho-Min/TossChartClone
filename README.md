@@ -22,5 +22,6 @@ iOS16부터 지원하는 Swift Charts 프레임워크를 이용하여 토스증�
 
 <br/>
 
-## Link
-- Reference: [[WWDC22] Swift Charts: Raise the bar](https://developer.apple.com/videos/play/wwdc2022/10137/)
+## Reference
+- [[WWDC22] Swift Charts: Raise the bar](https://developer.apple.com/videos/play/wwdc2022/10137/)
+- [Read Size Extension](https://www.fivestars.blog/articles/swiftui-share-layout-information/)
