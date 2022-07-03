@@ -238,22 +238,25 @@ private extension TossChart {
             ZStack {
                 GeometryReader { nthGeoItem in
                     if let selectedElement {
-                        let dateInterval = Calendar.current.dateInterval(of: .day, for: selectedElement.date)!
-                        let startPositionX1 = proxy.position(forX: dateInterval.start) ?? 0
-                        let startPositionX2 = proxy.position(forX: dateInterval.end) ?? 0
-                        let midStartPositionX = (startPositionX1 + startPositionX2) / 2 + nthGeoItem[proxy.plotAreaFrame].origin.x
+                        let dateInterval = Calendar.current.dateInterval(of: .day, for: selectedElement.date)! // 현재 선택된 날짜의 dateInterval 값 저장
+                        let startPositionX1 = proxy.position(forX: dateInterval.start) ?? 0 // 현재 선택된 날짜 간격의 시작 TimeInterval
+                        let startPositionX2 = proxy.position(forX: dateInterval.end) ?? 0 // 현재 선택된 날짜 간격의 끝 TimeInterval
+                        let midStartPositionX = (startPositionX1 + startPositionX2) / 2 // 현재 선택된 날짜 간격의 중앙
 
-                        let lineX = midStartPositionX
-                        let lineHeight = nthGeoItem[proxy.plotAreaFrame].midY
+                        let lineX = midStartPositionX - 0.5 // 선이 놓일 X 좌표
+                        let lineY = nthGeoItem[proxy.plotAreaFrame].midY // 선이 놓일 Y 좌표
                         
-                        let textOffset = max(0, min(nthGeoItem.size.width - textWidth, lineX - textWidth / 2))
+//                        let textOffset: CGFloat = 0 // GeometryReader의 특성상 좌상단에 정렬됨. 따라서 offset을 안 주면 맨 왼쪽에 붙음
+//                        let textOffset: CGFloat = nthGeoItem.size.width - textWidth // 맨 오른쪽에 붙음
+//                        let textOffset: CGFloat = lineX - textWidth / 2 // 컨텐츠 너비의 절반만큼 선의 x 좌표에서 offset을 주면 중앙 정렬됨
+//                        let textOffset: CGFloat = min(nthGeoItem.size.width - textWidth, lineX - textWidth / 2) // 선의 중앙이 맨 오른쪽에 붙었을 때의 x좌표보다 멀리 갈 경우 오른쪽에 붙게 만듦
+                        let textOffset = max(0, min(nthGeoItem.size.width - textWidth, lineX - textWidth / 2)) // 선의 중앙이 맨 왼쪽에 붙었을 떄의 x좌표보다 가까울 경우 왼쪽에 붙게 만듦
                         
-                        // 선
                         Rectangle()
                             .fill(.gray)
                             .frame(width: 1, height: proxy.plotAreaSize.height + 70)
                             .offset(y: 10)
-                            .position(x: lineX - 0.5, y: lineHeight)
+                            .position(x: lineX, y: lineY)
                         
                         Text("\(dateConverting(date: selectedElement.date))")
                             .font(.caption)
