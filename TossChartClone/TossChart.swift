@@ -224,7 +224,7 @@ private extension TossChart {
             GeometryReader { nthGeometryItem in
                 Rectangle().fill(.clear).contentShape(Rectangle())
                     .gesture(
-                        DragGesture()
+                        DragGesture(minimumDistance: 0)
                             .onChanged { value in
                                 selectedElement = findElement(location: value.location, proxy: proxy, geometry: nthGeometryItem)
                             }
