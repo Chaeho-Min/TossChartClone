@@ -98,7 +98,7 @@ private extension TossChart {
                 Text("\(secondPrice)원")
             }
         }
-        .font(.callout)
+        .font(.footnote)
     }
     
     @ViewBuilder func selectedHeaderRateRow(volumeLabel: String, volume: Int, rateLabel: String, rate: Float) -> some View {
@@ -113,7 +113,6 @@ private extension TossChart {
                     Text("\(volume / 10000)억 주")
                 } else {
                     Text("\(volume)만 주")
-                        .font(.callout)
                 }
             }
             HStack {
@@ -129,7 +128,7 @@ private extension TossChart {
                 }
             }
         }
-        .font(.callout)
+        .font(.footnote)
     }
     
     @ViewBuilder var stockChart: some View {
