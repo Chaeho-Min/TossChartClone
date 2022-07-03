@@ -337,14 +337,14 @@ private extension TossChart {
 
 private extension TossChart {
     func findElement(location: CGPoint, proxy: ChartProxy, geometry: GeometryProxy) -> Stock? {
-        let relativeXPosition = location.x - geometry[proxy.plotAreaFrame].origin.x
-        if let date = proxy.value(atX: relativeXPosition) as Date? {
-            var minDistance: TimeInterval = .infinity
+        let relativeXPosition = location.x - geometry[proxy.plotAreaFrame].origin.x // plotArea의 원점 대비 현재의 x 좌표
+        if let date = proxy.value(atX: relativeXPosition) as Date? { // proxy를 이용하여 현재의 x좌표(atX 파라미터)의 x축 차트 데이터(시간)를 받아온다
+            var minDistance: TimeInterval = .infinity // 초기값으로 무한대를 줘서 nthSalesDataDistance에 값이 들어오면 abs(nthSalesDataDistance) < minDistance가 무조건 true가 나오게 함
             var index: Int? = nil
-            for stockDataIndex in samsungStock.indices {
+            for stockDataIndex in samsungStock.indices { // samsungStock의 모든 인덱스에 대해 체크
                 let nthSalesDataDistance = samsungStock[stockDataIndex].date.distance(to: date)
                 if abs(nthSalesDataDistance) < minDistance {
-                    minDistance = abs(nthSalesDataDistance)
+                    minDistance = abs(nthSalesDataDistance) // 모든 인덱스에 대해 체크하여 가장 거리가 가까운 날짜를 찾는다.
                     index = stockDataIndex
                 }
             }
