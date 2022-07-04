@@ -10,7 +10,11 @@ import Charts
 
 struct TossChart: View {
     @State private var selectedElement: Stock?
-    @State private var textWidth: CGFloat = 50
+    @State private var selectedDateTextWidth: CGFloat = .zero
+    @State private var yearMaxPriceTextWidth: CGFloat = .zero
+    @State private var yearMaxPriceTextHeight: CGFloat = .zero
+    @State private var yearMinPriceTextWidth: CGFloat = .zero
+    @State private var yearMinPriceTextHeight: CGFloat = .zero
     private var maxPriceSortedData: [Stock] = samsungStock.sorted { $0.maxPrice > $1.maxPrice }
     private var minPriceSortedData: [Stock] = samsungStock.sorted { $0.minPrice < $1.minPrice }
     private var myStockAverage: Int = 70700
@@ -195,13 +199,8 @@ private extension TossChart {
                 .foregroundStyle(Color.gray)
                 .symbolSize(10)
                 .opacity(selectedElement == nil ? 1 : 0)
-                .annotation {
-                    Text("최고 \(maxPriceSortedData.first?.maxPrice ?? 0)원")
-                        .font(.caption2)
-                        .foregroundColor(.gray)
-                        .opacity(selectedElement == nil ? 1 : 0)
-                }
-            } else if stock.date == minPriceSortedData.first?.date ?? Date() {
+            }
+            if stock.date == minPriceSortedData.first?.date ?? Date() {
                 PointMark(
                     x: .value("Day", stock.date),
                     y: .value("MinPrice", stock.minPrice)
@@ -209,12 +208,6 @@ private extension TossChart {
                 .foregroundStyle(Color.gray)
                 .symbolSize(10)
                 .opacity(selectedElement == nil ? 1 : 0)
-                .annotation(position: .bottom, alignment: .trailing) {
-                    Text("최저 \(minPriceSortedData.first?.minPrice ?? 0)원")
-                        .font(.caption2)
-                        .foregroundColor(.gray)
-                        .opacity(selectedElement == nil ? 1 : 0)
-                }
             }
         }
         .chartYScale(domain: minPriceSortedData[0].minPrice ... maxPriceSortedData[0].maxPrice)
@@ -247,10 +240,10 @@ private extension TossChart {
                         let lineY = nthGeoItem[proxy.plotAreaFrame].midY // 선이 놓일 Y 좌표
                         
 //                        let textOffset: CGFloat = 0 // GeometryReader의 특성상 좌상단에 정렬됨. 따라서 offset을 안 주면 맨 왼쪽에 붙음
-//                        let textOffset: CGFloat = nthGeoItem.size.width - textWidth // 맨 오른쪽에 붙음
-//                        let textOffset: CGFloat = lineX - textWidth / 2 // 컨텐츠 너비의 절반만큼 선의 x 좌표에서 offset을 주면 중앙 정렬됨
-//                        let textOffset: CGFloat = min(nthGeoItem.size.width - textWidth, lineX - textWidth / 2) // 선의 중앙이 맨 오른쪽에 붙었을 때의 x좌표보다 멀리 갈 경우 오른쪽에 붙게 만듦
-                        let textOffset = max(0, min(nthGeoItem.size.width - textWidth, lineX - textWidth / 2)) // 선의 중앙이 맨 왼쪽에 붙었을 떄의 x좌표보다 가까울 경우 왼쪽에 붙게 만듦
+//                        let textOffset: CGFloat = nthGeoItem.size.width - selectedDateTextWidth // 맨 오른쪽에 붙음
+//                        let textOffset: CGFloat = lineX - selectedDateTextWidth / 2 // 컨텐츠 너비의 절반만큼 선의 x 좌표에서 offset을 주면 중앙 정렬됨
+//                        let textOffset: CGFloat = min(nthGeoItem.size.width - selectedDateTextWidth, lineX - selectedDateTextWidth / 2) // 선의 중앙이 맨 오른쪽에 붙었을 때의 x좌표보다 멀리 갈 경우 오른쪽에 붙게 만듦
+                        let textOffset = max(0, min(nthGeoItem.size.width - selectedDateTextWidth, lineX - selectedDateTextWidth / 2)) // 선의 중앙이 맨 왼쪽에 붙었을 떄의 x좌표보다 가까울 경우 왼쪽에 붙게 만듦
                         
                         Rectangle()
                             .fill(.gray)
@@ -263,10 +256,51 @@ private extension TossChart {
                             .foregroundColor(.gray)
                             .offset(x: textOffset, y: -45)
                             .readSize { size in
-                                textWidth = size.width
+                                selectedDateTextWidth = size.width
                             }
                     }
                 }
+            }
+        }
+        .chartOverlay { proxy in
+            GeometryReader { chartFrame in
+                let dateInterval = Calendar.current.dateInterval(of: .day, for: maxPriceSortedData.first?.date ?? Date())!
+                let startPositionX1 = proxy.position(forX: dateInterval.start) ?? 0
+                let startPositionX2 = proxy.position(forX: dateInterval.end) ?? 0
+                let midStartPositionX = (startPositionX1 + startPositionX2) / 2
+                
+                let textOffset = max(0, min(chartFrame.size.width - yearMaxPriceTextWidth, midStartPositionX - yearMaxPriceTextWidth / 2))
+                
+                Text("최고 \(maxPriceSortedData.first?.maxPrice ?? 0)원")
+                    .font(.caption2)
+                    .foregroundColor(.gray)
+                    .opacity(selectedElement == nil ? 1 : 0)
+                    .offset(x: textOffset, y: -yearMaxPriceTextHeight - 5)
+                    .readSize { size in
+                        yearMaxPriceTextWidth = size.width
+                        yearMaxPriceTextHeight = size.height
+                    }
+            }
+        }
+        .chartOverlay { proxy in
+            GeometryReader { chartFrame in
+                let dateInterval = Calendar.current.dateInterval(of: .day, for: minPriceSortedData.first?.date ?? Date())!
+                let startPositionX1 = proxy.position(forX: dateInterval.start) ?? 0
+                let startPositionX2 = proxy.position(forX: dateInterval.end) ?? 0
+                let midStartPositionX = (startPositionX1 + startPositionX2) / 2
+                
+                let textOffset = max(0, min(chartFrame.size.width - yearMaxPriceTextWidth, midStartPositionX - yearMaxPriceTextWidth / 2))
+                let textVerticalOffset = chartFrame.size.height + 5
+                
+                Text("최저 \(minPriceSortedData.first?.minPrice ?? 0)원")
+                    .font(.caption2)
+                    .foregroundColor(.gray)
+                    .opacity(selectedElement == nil ? 1 : 0)
+                    .offset(x: textOffset, y: textVerticalOffset)
+                    .readSize { size in
+                        yearMinPriceTextWidth = size.width
+                        yearMinPriceTextHeight = size.height
+                    }
             }
         }
     }
