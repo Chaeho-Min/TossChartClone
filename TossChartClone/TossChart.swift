@@ -158,7 +158,7 @@ private extension TossChart {
                                 .stroke()
                                 .foregroundColor(.gray)
                                 .opacity(0.005)
-                            Capsule().fill(.white)
+                            Capsule().fill(Color(UIColor.systemBackground))
                         }
                     }
                     .offset(y: 15)
@@ -181,6 +181,7 @@ private extension TossChart {
                     width: .fixed(5)
                 )
                 .foregroundStyle(stock.startPrice < stock.finalPrice ? Color.red : Color.blue)
+                .cornerRadius(1.5)
             } else { // 시가 == 종가
                 RectangleMark(
                     x: .value("Day", stock.date),
@@ -211,8 +212,8 @@ private extension TossChart {
             }
         }
         .chartYScale(domain: minPriceSortedData[0].minPrice ... maxPriceSortedData[0].maxPrice)
-        .chartXAxis{}
-        .chartYAxis{}
+        .chartXAxis(.hidden)
+        .chartYAxis(.hidden)
         .chartOverlay { proxy in
             GeometryReader { nthGeometryItem in
                 Rectangle().fill(.clear).contentShape(Rectangle())
@@ -313,9 +314,10 @@ private extension TossChart {
                 width: .fixed(5)
             )
             .foregroundStyle(Color.gray.opacity(0.4))
+            .cornerRadius(1.5)
         }
-        .chartXAxis{}
-        .chartYAxis{}
+        .chartXAxis(.hidden)
+        .chartYAxis(.hidden)
         .frame(height: 20)
     }
     
