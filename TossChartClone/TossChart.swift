@@ -68,7 +68,7 @@ private extension TossChart {
                 Text("1년 전보다")
                     .font(.footnote)
                     .foregroundColor(.gray)
-                Text("\((samsungStock.last?.finalPrice ?? 0) - (samsungStock.first?.finalPrice ?? 0))원 (\(String(format: "%.1f", ((Float(samsungStock.last?.finalPrice ?? 0) - Float(samsungStock.first?.finalPrice ?? 0)) / Float(samsungStock.first?.finalPrice ?? 0)) * 100))%)")
+                Text("\((samsungStock.last?.finalPrice ?? 0) - (samsungStock.first?.finalPrice ?? 0))원 (\(String(format: "%.1f", abs((Float(samsungStock.last?.finalPrice ?? 0) - Float(samsungStock.first?.finalPrice ?? 0)) / Float(samsungStock.first?.finalPrice ?? 0)) * 100))%)")
                     .font(.footnote)
                     .foregroundColor(((samsungStock.last?.finalPrice ?? 0) - (samsungStock.first?.finalPrice ?? 0)) > 0 ? .red : .blue)
             }
