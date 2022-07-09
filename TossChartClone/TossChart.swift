@@ -138,14 +138,12 @@ private extension TossChart {
     @ViewBuilder var stockChart: some View {
         Chart(samsungStock) { stock in
             // 내 주식 평균
-            RectangleMark(
-                xStart: .value("Day", samsungStock.first?.date ?? Date()),
-                xEnd: .value("Day", samsungStock.last?.date ?? Date()),
-                y: .value("Average", myStockAverage),
-                height: 1
+            RuleMark(
+                y: .value("Average", myStockAverage)
             )
-            .foregroundStyle(Color.gray)
-            .opacity(0.005)
+            .foregroundStyle(Color(UIColor.systemGray5))
+            .lineStyle(StrokeStyle(lineWidth: 1))
+            .blendMode(.darken)
             .annotation(alignment: .leading) {
                 Text("내 주식 평균")
                     .font(.caption2)
@@ -154,11 +152,10 @@ private extension TossChart {
                     .padding(.vertical, 4)
                     .background {
                         ZStack {
+                            Capsule().fill(Color(UIColor.systemBackground))
                             Capsule()
                                 .stroke()
-                                .foregroundColor(.gray)
-                                .opacity(0.005)
-                            Capsule().fill(Color(UIColor.systemBackground))
+                                .foregroundColor(Color(UIColor.systemGray5))
                         }
                     }
                     .offset(y: 15)
