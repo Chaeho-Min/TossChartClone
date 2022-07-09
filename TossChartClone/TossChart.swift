@@ -9,6 +9,7 @@ import SwiftUI
 import Charts
 
 struct TossChart: View {
+    @Environment(\.colorScheme) var colorScheme
     @State private var selectedElement: Stock?
     @State private var selectedDateTextWidth: CGFloat = .zero
     @State private var yearMaxPriceTextWidth: CGFloat = .zero
@@ -143,7 +144,7 @@ private extension TossChart {
             )
             .foregroundStyle(Color(UIColor.systemGray5))
             .lineStyle(StrokeStyle(lineWidth: 1))
-            .blendMode(.darken)
+            .blendMode(colorScheme == .light ? .darken : .lighten)
             .annotation(alignment: .leading) {
                 Text("내 주식 평균")
                     .font(.caption2)
@@ -348,7 +349,8 @@ private extension TossChart {
                 .padding(.vertical, 4)
                 .padding(.horizontal, 12)
                 .background {
-                    RoundedRectangle(cornerRadius: 12).fill(.white)
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(colorScheme == .light ? .white : Color(UIColor.systemGray3))
                         .shadow(color: .black.opacity(0.1), radius: 2, y: 2)
                 }
             Text("5년")
@@ -363,7 +365,8 @@ private extension TossChart {
         .padding(.vertical, 8)
         .padding(.horizontal, 10)
         .background {
-            RoundedRectangle(cornerRadius: 20).fill(.gray.opacity(0.05))
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color(UIColor.systemGray6))
         }
     }
 }
